@@ -3,6 +3,11 @@
 #include "Effect.h"
 #include "Precondition.h"
 
+//class IA;
+
+
+#include "AI.h"
+
 class Action
 {
 private:
@@ -16,7 +21,7 @@ public:
 
 	unsigned int EffectsCount() { effects.size(); }
 
-	unsigned int PreconditionsCount() { preconditions.size(); }
+	unsigned int PreconditionsCount() { return preconditions.size(); }
 
 	Effect* GetEffect(int i) { return effects[i]; }
 
