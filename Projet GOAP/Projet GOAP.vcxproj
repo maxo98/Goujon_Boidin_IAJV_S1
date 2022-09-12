@@ -139,7 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="AI.cpp" />
+    <ClCompile Include="Precondition.cpp" />
     <ClCompile Include="Projet GOAP.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Action.h" />
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="Effect.h" />
+    <ClInclude Include="AI.h" />
+    <ClInclude Include="Precondition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
