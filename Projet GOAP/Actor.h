@@ -11,7 +11,7 @@ protected:
 	int playerDistance = 5;
 	bool money = false;
 	bool degree = false;
-	bool lowHealth = false;
+	bool lowHealth = true;
 	int healthPotion = 1;
 
 public:
@@ -20,7 +20,7 @@ public:
 	inline int GetAmmo() { return ammo; };
 	inline int GetWeapon() { return weapon; };
 	inline int GetPlayerDistance() { return playerDistance; };
-	inline int GetHealthPotion() { return playerDistance; };
+	inline int GetHealthPotion() { return healthPotion; };
 
 	inline void SetAmmo(int _ammo) { ammo = _ammo; };
 	inline void SetWeapon(int _weapon) { weapon = _weapon; };

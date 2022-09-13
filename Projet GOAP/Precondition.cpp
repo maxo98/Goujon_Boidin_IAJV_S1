@@ -64,5 +64,5 @@ bool IsHealthy::IsTrue(AI* actor)
 
 	assert(casted != nullptr);
 
-	return !casted->IsLowHealth();
+	return (!casted->IsLowHealth());
 }

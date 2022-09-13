@@ -39,6 +39,7 @@ AttackPlayerAction::AttackPlayerAction()
 	preconditions.push_back(new HasAmmo());
 	preconditions.push_back(new HasWeapon());
 	preconditions.push_back(new PlayerInRange());
+	preconditions.push_back(new IsHealthy());
 
 	effects.push_back((Effect*)new AttackPlayer());
 }
