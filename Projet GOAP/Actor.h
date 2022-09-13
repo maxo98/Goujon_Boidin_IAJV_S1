@@ -1,6 +1,8 @@
 #pragma once
 #include "AI.h"
 
+class Action;
+
 class Actor : public AI
 {
 private:

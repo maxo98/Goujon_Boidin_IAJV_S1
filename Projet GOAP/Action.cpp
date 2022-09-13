@@ -3,7 +3,7 @@
 #include "Action.h"
 #include "AI.h"
 
-void Action::Execute(AI& actor)
+void Action::Execute(AI* actor)
 {
 	for (unsigned int i = 0; i < preconditions.size(); i++)
 	{

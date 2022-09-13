@@ -4,6 +4,7 @@
 
 #include <map>
 #include <queue>
+#include <list>
 
 class Action;
 
@@ -17,7 +18,7 @@ private:
 public:
 	void Plan(Action* action);
 
-	std::vector<Action*> ReverseAStar(Action* action);
+	std::pair<std::list<Action*>, int> ReverseAStar(Precondition* precondition);
 
 	std::vector<Action*> GetActionsFromPrecondition(Precondition* precondition)
 	{

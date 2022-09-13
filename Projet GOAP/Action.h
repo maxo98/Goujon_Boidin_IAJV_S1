@@ -17,7 +17,7 @@ private:
 
 public:
 
-	void Execute(AI& actor);
+	void Execute(AI* actor);
 
 	unsigned int EffectsCount() { effects.size(); }
 

@@ -5,7 +5,7 @@ class Effect
 {
 
 public:
-	void virtual ApplyEffect(AI& actor) = 0;
+	void virtual ApplyEffect(AI* actor) = 0;
 
 };
 
