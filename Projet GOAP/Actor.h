@@ -1,18 +1,19 @@
 #pragma once
 #include "AI.h"
+#include "world.h"
 
 class Action;
 
 class Actor : public AI
 {
 protected:
-	int ammo = 0;
-	int weapon = 1;
-	int playerDistance = 5;
-	bool money = false;
-	bool degree = false;
-	bool lowHealth = true;
-	int healthPotion = 0;
+	int ammo = AMMO;
+	int weapon = WEAPON;
+	int playerDistance = PLAYER_DISTANCE;
+	bool money = MONEY;
+	bool degree = DEGREE;
+	bool lowHealth = LOW_HEALTH;
+	int healthPotion = HEALTH_POTION;
 
 public:
 	Actor();

@@ -5,7 +5,6 @@
 
 int main()
 {
-
 	Actor actor;
 
 	Action* action = new AttackPlayerAction();

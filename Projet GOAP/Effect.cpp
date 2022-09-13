@@ -28,10 +28,11 @@ void GetWeaponEffect::ApplyEffect(AI* actor)
 	Actor* casted = (Actor*)actor;
 	assert(casted != nullptr);
 
+	casted->SetMoney(false);
 	casted->SetWeapon(1);
 	casted->SetAmmo(5);
 
-	std::cout << "Actor gets weapon" << std::endl;
+	std::cout << "Actor buys a weapon" << std::endl;
 }
 
 void MoveToPlayerEffect::ApplyEffect(AI* actor)
@@ -49,7 +50,7 @@ void GetMoneyEffect::ApplyEffect(AI* actor)
 	Actor* casted = (Actor*)actor;
 	assert(casted != nullptr);
 
-	casted->SetMoney(1);
+	casted->SetMoney(true);
 
 	std::cout << "Actor works to get money" << std::endl;
 }
@@ -69,6 +70,7 @@ void GetHealthPotionEffect::ApplyEffect(AI* actor)
 	Actor* casted = (Actor*)actor;
 	assert(casted != nullptr);
 
+	casted->SetMoney(false);
 	casted->SetHealthPotion(casted->GetHealthPotion() + 1);
 
 	std::cout << "Actor buys an health potion" << std::endl;

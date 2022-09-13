@@ -3,6 +3,7 @@
 #include "Action.h"
 #include "AI.h"
 #include "Actor.h"
+#include "world.h"
 
 void Action::Execute(AI* actor)
 {
@@ -78,14 +79,14 @@ int MoveToPlayerAction::GetCost(AI* actor)
 
 StealWeaponAction::StealWeaponAction()
 {
-	cost = 15;
+	cost = COST_STEAL;
 
 	effects.push_back((Effect*)new StealWeaponEffect());
 }
 
 StealPotionAction::StealPotionAction()
 {
-	cost = 1;
+	cost = COST_STEAL;
 
 	effects.push_back((Effect*)new StealPotionEffect());
 }
