@@ -3,6 +3,7 @@
 #include "Effect.h"
 #include "Precondition.h"
 #include "AI.h"
+#include <iostream>
 
 class Action
 {

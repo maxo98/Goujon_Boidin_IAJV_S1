@@ -17,30 +17,30 @@ public:
 
 	inline Types GetType() { return type; };
 
-private:
+protected:
 	Types type;
 };
 
 class HasAmmo: public Precondition
 {
-	bool virtual IsTrue(AI* actor);
+public:
+	HasAmmo() { type = Types::HasAmmo; }
 
-private:
-	Types type = Types::HasAmmo;
+	bool virtual IsTrue(AI* actor);
 };
 
 class HasWeapon: public Precondition
 {
-	bool virtual IsTrue(AI* actor);
+public:
+	HasWeapon() { type = Types::HasWeapon; }
 
-private:
-	Types type = Types::HasWeapon;
+	bool virtual IsTrue(AI* actor);
 };
 
 class PlayerInRange: public Precondition
 {
-	bool virtual IsTrue(AI* actor);
+public:
+	PlayerInRange() { type = Types::PlayerInRange; }
 
-private:
-	Types type = Types::PlayerInRange;
+	bool virtual IsTrue(AI* actor);
 };

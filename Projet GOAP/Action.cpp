@@ -8,7 +8,7 @@ void Action::Execute(AI* actor)
 {
 	for (unsigned int i = 0; i < preconditions.size(); i++)
 	{
-		assert(!preconditions[i]->IsTrue(actor));
+		assert(preconditions[i]->IsTrue(actor));
 	}
 
 	for (unsigned int i = 0; i < effects.size(); i++)
