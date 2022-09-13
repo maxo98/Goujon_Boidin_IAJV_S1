@@ -43,15 +43,19 @@ AttackPlayerAction::AttackPlayerAction()
 	effects.push_back((Effect*)new AttackPlayer());
 }
 
-GetWeaponAction::GetWeaponAction()
+BuyWeaponAction::BuyWeaponAction()
 {
+	preconditions.push_back(new HasMoney());
+
 	effects.push_back((Effect*)new GetWeaponEffect());
 
-	cost = 3;
+	cost = 2;
 }
 
 ReloadAction::ReloadAction()
 {
+	preconditions.push_back(new HasWeapon());
+
 	effects.push_back((Effect*)new ReloadEffect());
 
 	cost = 1;
@@ -69,4 +73,52 @@ int MoveToPlayerAction::GetCost(AI* actor)
 	assert(casted != nullptr);
 
 	return casted->GetPlayerDistance();
+}
+
+StealWeaponAction::StealWeaponAction()
+{
+	cost = 15;
+
+	effects.push_back((Effect*)new StealWeaponEffect());
+}
+
+StealPotionAction::StealPotionAction()
+{
+	cost = 15;
+
+	effects.push_back((Effect*)new StealPotionEffect());
+}
+
+WorkAction::WorkAction()
+{
+	cost = 4;
+
+	preconditions.push_back(new HasDegree());
+
+	effects.push_back((Effect*)new GetMoneyEffect());
+}
+
+StudyAction::StudyAction()
+{
+	cost = 7;
+
+	effects.push_back((Effect*)new GetDegreeEffect());
+}
+
+DrinkPotionAction::DrinkPotionAction()
+{
+	cost = 0;
+
+	preconditions.push_back(new HasHealthPotion());
+
+	effects.push_back((Effect*)new GetHealthEffect());
+}
+
+BuyPotionAction::BuyPotionAction()
+{
+	preconditions.push_back(new HasMoney());
+
+	effects.push_back((Effect*)new GetWeaponEffect());
+
+	cost = 2;
 }

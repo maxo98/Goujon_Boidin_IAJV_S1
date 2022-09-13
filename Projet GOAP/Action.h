@@ -35,10 +35,10 @@ public:
 	AttackPlayerAction();
 };
 
-class GetWeaponAction : public Action
+class BuyWeaponAction : public Action
 {
 public:
-	GetWeaponAction();
+	BuyWeaponAction();
 };
 
 class ReloadAction : public Action
@@ -53,4 +53,40 @@ public:
 	MoveToPlayerAction();
 
 	virtual int GetCost(AI* actor);
+};
+
+class StealWeaponAction : public Action
+{
+public:
+	StealWeaponAction();
+};
+
+class StealPotionAction : public Action
+{
+public:
+	StealPotionAction();
+};
+
+class WorkAction : public Action
+{
+public:
+	WorkAction();
+};
+
+class StudyAction : public Action
+{
+public:
+	StudyAction();
+};
+
+class BuyPotionAction : public Action
+{
+public:
+	BuyPotionAction();
+};
+
+class DrinkPotionAction : public Action
+{
+public:
+	DrinkPotionAction();
 };

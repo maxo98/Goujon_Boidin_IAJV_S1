@@ -21,9 +21,6 @@ AI::~AI()
 void AI::Plan(Action* action)
 {
 	bool isPossible = true;
-	std::list<Action*> actionList;
-
-	actionList.push_front(action);
 
 	for (unsigned int i = 0; i < action->PreconditionsCount(); i++)
 	{
@@ -33,17 +30,22 @@ void AI::Plan(Action* action)
 
 			if (newPath.second != -1)
 			{
-				actionList.splice(actionList.begin(), newPath.first);
+				for (std::list<Action*>::iterator it = newPath.first.begin(); it != newPath.first.end(); ++it)
+				{
+					(*it)->Execute(this);
+				}
 			}
 			else {
 				isPossible = false;
+
+				break;
 			}
 		}
 	}
 
-	for (std::list<Action*>::iterator it = actionList.begin(); it != actionList.end(); ++it)
+	if (isPossible == true)
 	{
-		(*it)->Execute(this);
+		action->Execute(this);
 	}
 }
 
@@ -65,11 +67,11 @@ std::pair<std::list<Action*>, int> AI::ReverseAStar(Precondition::Types precondi
 		computedPaths.back().first.push_back(actionsToTest[i]);
 
 		//For each precondition not filled enter compute best path to fill it and append it to the path
-		for (unsigned int i = 0; i < actionsToTest[i]->PreconditionsCount(); i++)
+		for (unsigned int cpt = 0; cpt < actionsToTest[i]->PreconditionsCount(); cpt++)
 		{
-			if (!actionsToTest[i]->GetPrecondition(i)->IsTrue(this))
+			if (!actionsToTest[i]->GetPrecondition(cpt)->IsTrue(this))
 			{
-				std::pair<std::list<Action*>, int> newPath = ReverseAStar(actionsToTest[i]->GetPrecondition(i)->GetType());
+				std::pair<std::list<Action*>, int> newPath = ReverseAStar(actionsToTest[i]->GetPrecondition(cpt)->GetType());
 
 				if (newPath.second != -1)
 				{

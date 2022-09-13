@@ -29,6 +29,7 @@ void GetWeaponEffect::ApplyEffect(AI* actor)
 	assert(casted != nullptr);
 
 	casted->SetWeapon(1);
+	casted->SetAmmo(5);
 
 	std::cout << "Actor gets weapon" << std::endl;
 }
@@ -41,4 +42,64 @@ void MoveToPlayerEffect::ApplyEffect(AI* actor)
 	casted->SetPlayerDistance(0);
 
 	std::cout << "Actor moves in range to player" << std::endl;
+}
+
+void GetMoneyEffect::ApplyEffect(AI* actor)
+{
+	Actor* casted = (Actor*)actor;
+	assert(casted != nullptr);
+
+	casted->SetMoney(1);
+
+	std::cout << "Actor works to get money" << std::endl;
+}
+
+void GetDegreeEffect::ApplyEffect(AI* actor)
+{
+	Actor* casted = (Actor*)actor;
+	assert(casted != nullptr);
+
+	casted->SetDegree(true);
+
+	std::cout << "Actor works to gets a degree" << std::endl;
+}
+
+void GetHealthPotionEffect::ApplyEffect(AI* actor)
+{
+	Actor* casted = (Actor*)actor;
+	assert(casted != nullptr);
+
+	casted->SetHealthPotion(casted->GetHealthPotion() + 1);
+
+	std::cout << "Actor buys an health potion" << std::endl;
+}
+
+void GetHealthEffect::ApplyEffect(AI* actor)
+{
+	Actor* casted = (Actor*)actor;
+	assert(casted != nullptr);
+
+	casted->SetLowHealth(false);
+
+	std::cout << "Actor drinks an health potion" << std::endl;
+}
+
+void StealWeaponEffect::ApplyEffect(AI* actor)
+{
+	Actor* casted = (Actor*)actor;
+	assert(casted != nullptr);
+
+	casted->SetWeapon(1);
+
+	std::cout << "Actor drinks an health potion" << std::endl;
+}
+
+void StealPotionEffect::ApplyEffect(AI* actor)
+{
+	Actor* casted = (Actor*)actor;
+	assert(casted != nullptr);
+
+	casted->SetHealthPotion(casted->GetHealthPotion() + 1);
+
+	std::cout << "Actor drinks an health potion" << std::endl;
 }
