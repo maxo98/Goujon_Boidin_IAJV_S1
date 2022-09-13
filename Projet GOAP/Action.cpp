@@ -85,7 +85,7 @@ StealWeaponAction::StealWeaponAction()
 
 StealPotionAction::StealPotionAction()
 {
-	cost = 15;
+	cost = 1;
 
 	effects.push_back((Effect*)new StealPotionEffect());
 }
@@ -119,7 +119,7 @@ BuyPotionAction::BuyPotionAction()
 {
 	preconditions.push_back(new HasMoney());
 
-	effects.push_back((Effect*)new GetWeaponEffect());
+	effects.push_back((Effect*)new GetHealthPotionEffect());
 
 	cost = 2;
 }

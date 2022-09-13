@@ -91,7 +91,7 @@ void StealWeaponEffect::ApplyEffect(AI* actor)
 
 	casted->SetWeapon(1);
 
-	std::cout << "Actor drinks an health potion" << std::endl;
+	std::cout << "Actor steals an weapon" << std::endl;
 }
 
 void StealPotionEffect::ApplyEffect(AI* actor)
@@ -101,5 +101,5 @@ void StealPotionEffect::ApplyEffect(AI* actor)
 
 	casted->SetHealthPotion(casted->GetHealthPotion() + 1);
 
-	std::cout << "Actor drinks an health potion" << std::endl;
+	std::cout << "Actor steals an health potion" << std::endl;
 }

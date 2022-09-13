@@ -7,12 +7,12 @@ class Actor : public AI
 {
 protected:
 	int ammo = 0;
-	int weapon = 0;
+	int weapon = 1;
 	int playerDistance = 5;
 	bool money = false;
 	bool degree = false;
 	bool lowHealth = true;
-	int healthPotion = 1;
+	int healthPotion = 0;
 
 public:
 	Actor();
