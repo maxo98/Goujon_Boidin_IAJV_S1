@@ -2,20 +2,18 @@
 #include <vector>
 #include "Effect.h"
 #include "Precondition.h"
-
-//class IA;
-
-
 #include "AI.h"
 
 class Action
 {
-private:
+protected:
 	std::vector<Precondition*> preconditions;
 	std::vector<Effect*> effects;
 	int cost;
 
 public:
+
+	~Action();
 
 	void Execute(AI* actor);
 
@@ -27,8 +25,31 @@ public:
 
 	Precondition* GetPrecondition(int i) { return preconditions[i]; }
 
-	int GetCost() { return cost; }
-
-	
+	virtual int GetCost(AI* actor) { return cost; }
 };
 
+class AttackPlayerAction: public Action
+{
+public:
+	AttackPlayerAction();
+};
+
+class GetWeaponAction : public Action
+{
+public:
+	GetWeaponAction();
+};
+
+class ReloadAction : public Action
+{
+public:
+	ReloadAction();
+};
+
+class MoveToPlayerAction : public Action
+{
+public:
+	MoveToPlayerAction();
+
+	virtual int GetCost(AI* actor);
+};
