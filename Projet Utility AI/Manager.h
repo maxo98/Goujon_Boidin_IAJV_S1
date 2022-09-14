@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
-#include "Action.h"
-#include "World.h"
+
+class World;
+class Action;
 
 class Manager
 {
@@ -23,6 +24,8 @@ public:
 	
 	void Update();
 
-	Action* EvaluateActions();
+	int EvaluateActions();
+
+	World* GetWorld() { return world; };
 };
 

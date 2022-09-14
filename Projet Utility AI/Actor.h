@@ -3,6 +3,7 @@
 enum class ACTOR_TYPE
 {
 	VILLAGER,
+	LENGTH,
 };
 
 class Actor
@@ -13,7 +14,7 @@ private:
 
 public:
 
-	float GetIdleTime() { return idleTime; };
+	float GetIdleTime() const { return idleTime; };
 
 };
 

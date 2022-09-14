@@ -1,9 +1,15 @@
 #pragma once
-#include "World.h"
+#include <vector>
+#include <map>
+#include "EvaluatorCompareRessources.h"
+
+class World;
+class EvaluatorCompareRessources;
 
 enum class ACTION_TYPE
 {
-	VILLAGER,
+	CREATEVILLAGER,
+	PRODUCEFOOD,
 	LENGTH
 };
 
@@ -11,19 +17,24 @@ class Action
 {
 protected:
 	std::vector<int> ressources;
+	std::map<RESSOURCE_TYPE,EvaluatorCompareRessources*> evaluators;
 
 public:
 	Action();
+
+	void DeInit();
 
 	virtual bool CanDoAction(World* world) = 0;
 
 	float EvaluateIdleTime(float worldAverageIdleTime);
 
-	float EvaluationRessource(World* world, int ressourceType);
+	virtual float EvaluationRessource(World* world, int ressourceType);
 
 	virtual float EvaluateAction(World* world) = 0;
 
 	virtual void ExecuteAction(World* world) = 0;
+
+	void AddEvaluator(RESSOURCE_TYPE evaluatorType, EvaluatorCompareRessources* evaluator);
 };
 
 class CreateVillager : public Action

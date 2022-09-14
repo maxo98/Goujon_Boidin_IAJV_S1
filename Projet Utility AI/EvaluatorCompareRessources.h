@@ -8,7 +8,7 @@ public:
 	virtual float GetScore(const World* world) = 0;
 };
 
-class EvaluateDivide : EvaluatorCompareRessources
+class EvaluateDivide : public EvaluatorCompareRessources
 {
 private:
 	RESSOURCE_TYPE ressourceType;
@@ -18,5 +18,16 @@ public:
 
 	float GetScore(const World* world) override;
 
+};
+
+class EvaluateInvExpo : public EvaluatorCompareRessources
+{
+private:
+	RESSOURCE_TYPE ressourceType;
+
+public:
+	EvaluateInvExpo(RESSOURCE_TYPE ressource);
+
+	float GetScore(const World* world) override;
 };
 

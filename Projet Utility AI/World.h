@@ -3,6 +3,8 @@
 #include <map>
 #include "Actor.h"
 
+class Actor;
+
 enum class RESSOURCE_TYPE
 {
 	FOOD,
@@ -19,6 +21,8 @@ private:
 public:
 	World();
 
+	void DeInit();
+
 	void UpdateRessources(RESSOURCE_TYPE ressourceType, int amountConsumed);
 
 	void AddActor(Actor* actor, ACTOR_TYPE actorType);
@@ -30,6 +34,8 @@ public:
 	int GetActorAverageIdleTime(ACTOR_TYPE actorType) const;
 
 	std::vector<Actor*> GetActorFromType(ACTOR_TYPE actorType) const;
+
+	int GetPopulation() const { return actors.size(); }
 
 };
 
