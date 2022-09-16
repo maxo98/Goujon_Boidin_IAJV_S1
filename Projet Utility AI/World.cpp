@@ -167,7 +167,7 @@ int World::GetPopulation(ACTOR_TYPE actorType) const
 	auto iterator = actors.find(actorType);
 	if (iterator != actors.end())
 	{
-		return iterator->second.size();
+		return (int) iterator->second.size();
 	}
 	return 0;
 }

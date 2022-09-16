@@ -13,7 +13,7 @@ int main()
 	{
 		i--;
 		mainManager->Update();
-		//Sleep(1000);
+		Sleep(TICK_SPEED);
 	}
 	
 	mainManager->ShowStats();

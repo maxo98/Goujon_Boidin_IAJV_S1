@@ -10,8 +10,9 @@ class Manager
 {
 private:
 	static Manager* managerSingleton;
-
+	// actions are separated by the type of actors who can execute them for better handling
 	std::map<ACTOR_TYPE,std::vector<Action*>> availableActionsForActors;
+	// actions that can't be realised by an actor
 	std::vector<Action*> availableActionsCreateActors;
 	World* world;
 

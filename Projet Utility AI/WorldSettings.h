@@ -1,5 +1,11 @@
 #pragma once
 
+//Here are all the constants necessary to have the world function. 
+//it's not properly balanced
+
+// set the speed for the updates of all the classes.
+constexpr int TICK_SPEED = 1000;
+
 //Setup Max Villager Goal
 constexpr int GOAL_MAX_VILLAGER = 20;
 

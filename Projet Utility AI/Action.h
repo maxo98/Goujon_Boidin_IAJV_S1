@@ -6,11 +6,21 @@
 class World;
 class EvaluatorCompareRessources;
 
+
+// Class action and its childs
+// check actions, evaluate it and execute
+// execution mostly send the order to an actor to execute a task
+// except for creating new Actors.
+
 class Action
 {
 protected:
+	// amounts of ressources consummed or gained by doing the action 
+	//(can potentially consum or gain multiple type of ressources at once)
 	std::vector<int> ressources;
+	// to not have an action done twice 
 	bool actionDone;
+	// for each ressources you can have a different evaluator
 	std::map<RESSOURCE_TYPE,EvaluatorCompareRessources*> evaluators;
 
 public:
@@ -18,16 +28,21 @@ public:
 
 	void DeInit();
 
+	// check if the action is doable
 	virtual bool CanDoAction(World* world) = 0;
 
+	// evaluate for a given action the value of the ressource depending criteria using the evaluator specified
 	virtual float EvaluationRessource(World* world, int ressourceType);
 
+	// gives a value out of each ressources evaluation
 	virtual float EvaluateAction(World* world);
 
+	// either execute the action or give a task to an actor
 	virtual void ExecuteAction(World* world) = 0;
 
 	void resetAction() { actionDone = false; };
 
+	// add new evaluator to the action
 	void AddEvaluator(RESSOURCE_TYPE evaluatorType, EvaluatorCompareRessources* evaluator);
 
 };

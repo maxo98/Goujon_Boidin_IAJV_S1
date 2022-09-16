@@ -1,9 +1,8 @@
 #pragma once
-#include "Action.h"
 #include "WorldSettings.h"
 
 class World;
-
+class Action;
 
 class Actor
 {

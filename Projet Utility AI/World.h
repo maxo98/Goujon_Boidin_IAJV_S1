@@ -7,8 +7,11 @@
 class World
 {
 private:
+	// list of all the actors created sorted by type
 	std::map<ACTOR_TYPE, std::vector<Actor*>> actors;
+	// max value allowed for each ressources sorted from the enum class for ressources
 	std::vector<int> maxValueRessources;
+	// current value for each ressources
 	std::vector<int> ressources;
 
 public:
