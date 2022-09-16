@@ -9,13 +9,15 @@ int main()
 {
 	Manager* mainManager = Manager::GetInstance();
 	int i = 20;
-	while (mainManager->GetWorld()->GetPopulation() < GOAL_MAX_VILLAGER || i > 0) 
+	while (mainManager->GetWorld()->GetTotalPopulation() < GOAL_MAX_VILLAGER || i > 0) 
 	{
 		i--;
 		mainManager->Update();
-		Sleep(1000);
+		//Sleep(1000);
 	}
-
+	
+	mainManager->ShowStats();
+	std::cout << "-----Finish-----" << std::endl;
 	return 0;
 }
 

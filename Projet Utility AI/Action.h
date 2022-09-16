@@ -1,22 +1,16 @@
 #pragma once
 #include <vector>
 #include <map>
-#include "EvaluatorCompareRessources.h"
+#include "WorldSettings.h"
 
 class World;
 class EvaluatorCompareRessources;
-
-enum class ACTION_TYPE
-{
-	CREATEVILLAGER,
-	PRODUCEFOOD,
-	LENGTH
-};
 
 class Action
 {
 protected:
 	std::vector<int> ressources;
+	bool actionDone;
 	std::map<RESSOURCE_TYPE,EvaluatorCompareRessources*> evaluators;
 
 public:
@@ -26,25 +20,53 @@ public:
 
 	virtual bool CanDoAction(World* world) = 0;
 
-	float EvaluateIdleTime(float worldAverageIdleTime);
-
 	virtual float EvaluationRessource(World* world, int ressourceType);
 
-	virtual float EvaluateAction(World* world) = 0;
+	virtual float EvaluateAction(World* world);
 
 	virtual void ExecuteAction(World* world) = 0;
 
+	void resetAction() { actionDone = false; };
+
 	void AddEvaluator(RESSOURCE_TYPE evaluatorType, EvaluatorCompareRessources* evaluator);
+
 };
 
 class CreateVillager : public Action
 {
+private:
+	ACTOR_TYPE actorType;
+
 public :
-	CreateVillager();
+	CreateVillager(World* world);
 
 	bool CanDoAction(World* world) override;
 
-	float EvaluateAction(World *world) override;
+	void ExecuteAction(World* world) override;
+};
+
+class CreateFarmer : public Action
+{
+private:
+	ACTOR_TYPE actorType;
+
+public:
+	CreateFarmer(World* world);
+
+	bool CanDoAction(World* world) override;
+
+	void ExecuteAction(World* world) override;
+};
+
+class CreateLumberjack : public Action
+{
+private:
+	ACTOR_TYPE actorType;
+
+public:
+	CreateLumberjack(World* world);
+
+	bool CanDoAction(World* world) override;
 
 	void ExecuteAction(World* world) override;
 };
@@ -52,11 +74,41 @@ public :
 class ProduceFood: public Action
 {
 public:
-	ProduceFood();
+	ProduceFood(World* world);
 
 	bool CanDoAction(World* world) override;
 
-	float EvaluateAction(World* world) override;
+	void ExecuteAction(World* world) override;
+};
+
+class GatherWater : public Action
+{
+public:
+	GatherWater(World* world);
+
+	bool CanDoAction(World* world) override;
+
+	void ExecuteAction(World* world) override;
+};
+
+class ChopWood : public Action
+{
+public:
+	ChopWood(World* world);
+
+	bool CanDoAction(World* world) override;
+
+	void ExecuteAction(World* world) override;
+};
+
+
+
+class BuildHouse : public Action
+{
+public:
+	BuildHouse(World* world);
+
+	bool CanDoAction(World* world) override;
 
 	void ExecuteAction(World* world) override;
 };

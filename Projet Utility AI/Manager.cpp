@@ -6,8 +6,6 @@
 #include "Action.h"
 #include "WorldSettings.h"
 
-
-
 Manager* Manager::managerSingleton = nullptr;
 
 Manager::Manager()
@@ -24,49 +22,91 @@ Manager* Manager::GetInstance()
 
 void Manager::InitManager()
 {
-	availableActions.reserve((int) ACTION_TYPE::LENGTH);
-
-	//ajouter tout les types d'action
-	availableActions.push_back(new CreateVillager());
-	availableActions.push_back(new ProduceFood());
-
-
 	world = new World();
+
+	std::vector<Action*> actionForVillager;
+	actionForVillager.reserve((int)ACTION_TYPE::LENGTH - (int)ACTION_TYPE::LENGTHCREATE);
+
+	//add actions in a vector for each type of actor
+	actionForVillager.push_back(new GatherWater(world));
+	actionForVillager.push_back(new BuildHouse(world));
+	availableActionsForActors.emplace(ACTOR_TYPE::VILLAGER, actionForVillager);
+
+	std::vector<Action*> actionForLumberjack;
+	actionForLumberjack.reserve((int)ACTION_TYPE::LENGTH - (int)ACTION_TYPE::LENGTHCREATE);
+	actionForLumberjack.push_back(new ChopWood(world));
+	availableActionsForActors.emplace(ACTOR_TYPE::LUMBERJACK, actionForLumberjack);
+
+	std::vector<Action*> actionForFarmer;
+	actionForFarmer.reserve((int)ACTION_TYPE::LENGTH - (int)ACTION_TYPE::LENGTHCREATE);
+	actionForFarmer.push_back(new ProduceFood(world));
+	availableActionsForActors.emplace(ACTOR_TYPE::FARMER, actionForFarmer);
+
+	availableActionsCreateActors.reserve((int) ACTION_TYPE::LENGTHCREATE);
+	availableActionsCreateActors.push_back(new CreateVillager(world));
+	availableActionsCreateActors.push_back(new CreateFarmer(world));
+	availableActionsCreateActors.push_back(new CreateLumberjack(world));
+
+	
 }
 
 void Manager::DeInit()
 {
-	for (Action* action : availableActions)
+	for (int i = 0; i < (int)ACTOR_TYPE::LENGTH; i++)
 	{
-		if(action != nullptr)
+		for(int j = (int) ACTION_TYPE::LENGTHCREATE; j < (int) ACTION_TYPE::LENGTH - (int)ACTION_TYPE::LENGTHCREATE; j++)
+		{
+			if (availableActionsForActors[(ACTOR_TYPE)i][j] != nullptr)
+			{
+				availableActionsForActors[(ACTOR_TYPE)i][j]->DeInit();
+				delete availableActionsForActors[(ACTOR_TYPE)i][j];
+				availableActionsForActors[(ACTOR_TYPE)i][j] = nullptr;
+			}
+		}
+	}
+	for (Action* action : availableActionsCreateActors)
+	{
+		if (action != nullptr)
 		{
 			action->DeInit();
 			delete action;
 			action = nullptr;
 		}
 	}
-
 }
 
 void Manager::Update()
 {
-	std::cout << "Food : " << std::to_string(world->GetRessourceAmount((RESSOURCE_TYPE)0)) << std::endl;
-	int selectedAction = EvaluateActions();
-	if(selectedAction != -1)
-		availableActions[selectedAction]->ExecuteAction(world);
-
+	resetActions();
+	ShowStats();
+	int selectedAction = 0;
+	for (int i = 0; i < (int)ACTOR_TYPE::LENGTH; i++)
+	{
+		for (Actor* actor : world->GetActorsFromType((ACTOR_TYPE)i))
+		{
+			selectedAction = EvaluateActions(&availableActionsForActors[(ACTOR_TYPE)i]);
+			if (selectedAction > -1)
+			{
+				availableActionsForActors[(ACTOR_TYPE)i][selectedAction]->ExecuteAction(world);
+			}
+		}
+	}
+	selectedAction = EvaluateActions(&availableActionsCreateActors);
+	if (selectedAction != -1)
+		availableActionsCreateActors[selectedAction]->ExecuteAction(world);
+	world->WorldUpdate();
 }
 
-int Manager::EvaluateActions()
+int Manager::EvaluateActions(std::vector<Action*>* actions)
 {
 	int selectedAction = -1;
 	float actionValue = 0;
-	for (int i = 0; i < availableActions.size(); i++)
+	for (unsigned int i = 0; i < actions->size(); i++)
 	{
-		if (!availableActions[i]->CanDoAction(world))
+		if (!(*actions)[i]->CanDoAction(world))
 			continue;
 
-		float currentActionValue = availableActions[i]->EvaluateAction(world);
+		float currentActionValue =(*actions)[i]->EvaluateAction(world);
 		if (currentActionValue > actionValue)
 		{
 			actionValue = currentActionValue;
@@ -74,4 +114,31 @@ int Manager::EvaluateActions()
 		}
 	}
 	return selectedAction;
+}
+
+void Manager::resetActions()
+{
+	for (int i = 0; i < (int)ACTOR_TYPE::LENGTH; i++)
+	{
+		for (Action* action : availableActionsForActors[(ACTOR_TYPE)i])
+		{
+			action->resetAction();
+		}
+	}
+	for (Action* action : availableActionsCreateActors)
+	{
+		action->resetAction();
+	}
+}
+
+void Manager::ShowStats()
+{
+	std::cout << "---------------------------------" << std::endl;
+	std::cout << "Food : " << std::to_string(world->GetRessourceAmount(RESSOURCE_TYPE::FOOD)) << std::endl;
+	std::cout << "Water : " << std::to_string(world->GetRessourceAmount(RESSOURCE_TYPE::WATER)) << std::endl;
+	std::cout << "Wood : " << std::to_string(world->GetRessourceAmount(RESSOURCE_TYPE::WOOD)) << std::endl;
+	std::cout << "Tree : " << std::to_string(world->GetRessourceAmount(RESSOURCE_TYPE::TREE)) << std::endl;
+	std::cout << "House : " << std::to_string(world->GetRessourceAmount(RESSOURCE_TYPE::HOUSE)) << std::endl;
+	std::cout << "Villagers : " << std::to_string(world->GetTotalPopulation()) << std::endl;
+	std::cout << "---------------------------------" << std::endl;
 }

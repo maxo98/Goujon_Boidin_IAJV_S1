@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <map>
+#include "WorldSettings.h"
 
 class World;
 class Action;
@@ -9,7 +11,8 @@ class Manager
 private:
 	static Manager* managerSingleton;
 
-	std::vector<Action*> availableActions;
+	std::map<ACTOR_TYPE,std::vector<Action*>> availableActionsForActors;
+	std::vector<Action*> availableActionsCreateActors;
 	World* world;
 
 	Manager();
@@ -24,7 +27,11 @@ public:
 	
 	void Update();
 
-	int EvaluateActions();
+	int EvaluateActions(std::vector<Action*>* actions);
+
+	void resetActions();
+
+	void ShowStats();
 
 	World* GetWorld() { return world; };
 };

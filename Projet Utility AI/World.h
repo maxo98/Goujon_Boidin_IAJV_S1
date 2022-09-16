@@ -2,14 +2,7 @@
 #include <vector>
 #include <map>
 #include "Actor.h"
-
-class Actor;
-
-enum class RESSOURCE_TYPE
-{
-	FOOD,
-	LENGTH
-};
+#include "WorldSettings.h"
 
 class World
 {
@@ -23,7 +16,11 @@ public:
 
 	void DeInit();
 
+	void WorldUpdate();
+
 	void UpdateRessources(RESSOURCE_TYPE ressourceType, int amountConsumed);
+
+	void KillActor(ACTOR_TYPE actorType, Actor* actor);
 
 	void AddActor(Actor* actor, ACTOR_TYPE actorType);
 
@@ -31,11 +28,14 @@ public:
 
 	int GetMaxValueRessource(RESSOURCE_TYPE ressourceType) const { return maxValueRessources[(int)ressourceType]; }
 
-	int GetActorAverageIdleTime(ACTOR_TYPE actorType) const;
+	std::vector<Actor*> GetActorsFromType(ACTOR_TYPE actorType) const;
 
-	std::vector<Actor*> GetActorFromType(ACTOR_TYPE actorType) const;
+	Actor* HasActorFreeFromType(ACTOR_TYPE actorType);
 
-	int GetPopulation() const { return actors.size(); }
+	int GetTotalFoodConsumedPerTick() const;
 
+	int GetPopulation(ACTOR_TYPE actorType) const;
+
+	int GetTotalPopulation() const;
 };
 
